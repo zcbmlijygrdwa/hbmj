@@ -4,13 +4,13 @@
 
 Table::Table()
 {
-    count_discovered = 0;
-    count_undiscovered = count_total;
     Table::reset_table();
 }
 
 void Table::reset_table()
 {
+    count_discovered = 0;
+    count_undiscovered = count_total;
     for(int i = 0 ;i<table_size;i++)
     {
         table_known[i].reset_group_full(i);

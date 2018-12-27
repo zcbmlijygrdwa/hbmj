@@ -16,6 +16,102 @@ ostream& operator <<(ostream& o, SingleGroup& s)
     return s.to_string(o);
 }
 
+bool judger2(vector<Tile>& ts)
+{
+    bool isJiang = false;
+    int keiCount = 0;
+    int shunCount = 0;
+
+    int sumSuits[9][10] = {}; // ={};  will give a zero-initialized array.
+
+    for(int i = 0  ; i < ts.size() ; i++ )
+    {
+        sumSuits[ts[i].num-1][ts[i].suit]++;
+    }
+
+
+    for(int i = 1  ; !isJiang && i < SingleGroup::group_size; i++ )
+    {
+        for(int j = 0; !isJiang && j<9;j++)
+        {
+            if(sumSuits[j][i]==2&&(j==1||j==4||j==7))
+            {
+                isJiang = true;
+                sumSuits[j][i] -= 2;
+            }
+        }
+    }
+
+
+    for(int i = 1  ; i < SingleGroup::group_size; i++ )
+    {
+        for(int j = 0; j<9;j++)
+        {
+            if(sumSuits[j][i]==3)
+            {
+                if(!isJiang&&(j==1||j==4||j==7))
+                {
+                    isJiang = true;
+                    sumSuits[j][i] -= 2;
+                }
+                else
+                {
+                    keiCount++;
+                    sumSuits[j][i] -= 3;
+                }
+            }
+        }
+    }
+
+    if(!isJiang)
+    {
+        return false;
+    }
+
+
+    for(int i = 0  ; i < SingleGroup::group_size; i++ )
+    {
+        for(int j = 0; j<7;j++)
+        {
+            //cout<<"j = "<<j<<endl;
+            if(sumSuits[j][i]>0&&sumSuits[j+1][i]>0&&sumSuits[j+2][i]>0)
+            {
+                shunCount++;
+                j+=2;
+            }
+        }
+    }
+
+
+
+    cout<<"isJiang = "<<isJiang<<", keiCount = "<<keiCount<<", shunCount = "<<shunCount<<endl;
+
+    if(isJiang&&(keiCount+shunCount==4))
+    {
+        return true;
+    }
+    else
+    {
+        return false;
+    }
+
+}
+
+void getJiang(vector<Tile>& ts,vector<Tile>& js)
+{
+    js.clear();
+
+    for(int i = 0  ; i < ts.size() ; i++ )
+    {
+        Tile t = ts[i];
+        if(t.num==2||t.num==5||t.num==8)
+        {
+            js.push_back(t);
+        }
+    }
+}
+
+
 int string2suit(std::string s)
 {
     for(int i = 0; i < SingleGroup::group_size ; i++)
@@ -43,75 +139,50 @@ int main()
     //iSecret = rand() % 10 + 1;
 
     vector<Tile> my_tile_set;
+    vector<Tile> my_jiang_set;
 
     Table t;
 
-    t.vis_table();
-
-    int temp_suit = 0;
-    int temp_num = 0;
-
-    for(int i = 0 ;i<13;i++)
+    bool isFound = false;
+    while(!isFound)
     {
-        if(rand()%34<27)
+        t.reset_table();
+
+        my_tile_set.clear();
+
+        int temp_suit = 0;
+        int temp_num = 0;
+        for(int i = 0 ;i<14;i++)
         {
-            temp_suit = rand() %SingleGroup::simple_size;
-            temp_num = rand() % Table::table_size + 1;
+            if(rand()%34<27)
+            {
+                temp_suit = rand() %SingleGroup::simple_size;
+                temp_num = rand() % Table::table_size + 1;
+
+            }
+            else
+            {
+                temp_suit = rand() %SingleGroup::honor_size + SingleGroup::simple_size;
+                temp_num = 1;
+
+            }
+
             t.discover_tile(temp_num,temp_suit);
 
+            Tile t(temp_num,temp_suit);
+            my_tile_set.push_back(t);
         }
-        else
-        {
-            temp_suit = rand() %SingleGroup::honor_size + SingleGroup::simple_size;
-            temp_num = 1;
-            t.discover_tile(temp_num,temp_suit);
-
-        }
-
-        Tile t(temp_num,temp_suit);
-        my_tile_set.push_back(t);
-
-        cout<<"temp_num = "<<temp_num<<", temp_suit = "<<temp_suit<<endl;
+        
+        isFound = judger2(my_tile_set);
+        cout<<"judger = "<<isFound<<endl;
     }
-    t.vis_table();
 
-    cout<<"t.count_undiscovered = "<<t.count_undiscovered<<endl;
-
+    sort_my_tiles(my_tile_set);
     cout<<"My tiles="<<endl;
     for(int i = 0 ; i<my_tile_set.size();i++)
     {
         cout<<my_tile_set[i].num<<", "<<SingleGroup::suit_name_set[my_tile_set[i].suit]<<endl;
     }
-
-    sort_my_tiles(my_tile_set);
-
-    cout<<"After sort, my tiles="<<endl;
-    for(int i = 0 ; i<my_tile_set.size();i++)
-    {
-        cout<<my_tile_set[i].num<<", "<<SingleGroup::suit_name_set[my_tile_set[i].suit]<<endl;
-    }
-
-    cout<<"Prob of get["<<4<<" dot] = "<<t.tile_prob(4,SingleGroup::dot)<<endl;
-
-    cout<<"Prob of get["<<5<<" dot] = "<<t.tile_prob(5,SingleGroup::dot)<<endl;
-
-    string ui;
-    while(true)
-    {
-        cout<<"Please enter num: "<<endl;
-        cin>>temp_num;
-        cout<<"Then suit: "<<endl;
-        cin>>ui;
-        temp_suit = string2suit(ui);
-        if(temp_suit!=-1&&temp_num>=1&&temp_num<=9)
-{
-        cout<<"Prob of get["<<temp_num<<","<<ui<<"] = "<<t.tile_prob(temp_num,temp_suit)<<endl<<endl;
-}
-else
-{
-    cout<<"Invalid input!"<<endl;
-} 
-   }
 
 
 
