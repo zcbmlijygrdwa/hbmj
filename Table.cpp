@@ -39,6 +39,19 @@ void Table::vis_table()
 
 }
 
+
+int Table::check_tile_remain(int num, int suit)
+{
+    return table_known[num-1].get_count(suit);
+}
+
+void Table::return_tile(int num, int suit)
+{
+    table_known[num-1].put(suit);
+    count_discovered --;
+    count_undiscovered ++;
+}
+
 void Table::discover_tile(int num, int suit)
 {
     table_known[num-1].fetch(suit);

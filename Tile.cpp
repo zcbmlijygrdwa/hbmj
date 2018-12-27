@@ -13,6 +13,16 @@ Tile::Tile(int num_in, int suit_in)
     suit = suit_in;
 }
 
+bool Tile::isValid()
+{
+    if(num>1&&suit>=3)
+    {
+        return false;
+    }
+    return true;
+}
+
+
 bool Tile::operator <(const Tile& rhs)
 {
     if(this->suit<rhs.suit)
