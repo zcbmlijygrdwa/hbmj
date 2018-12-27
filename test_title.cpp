@@ -32,21 +32,21 @@ SimpleTile default_simple_tile;
 cout<<"default_simple_tile = "<<default_simple_tile<<endl;
 
 
-SimpleTile custom_simple_tile(SimpleTile::suit_dot,2);
+SimpleTile custom_simple_tile(2,SimpleTile::Dot);
 
 cout<<"custom_simple_tile = "<<custom_simple_tile<<endl;
 
 
 
 //Tests for HonorTile
-cout<<"HonorTile.Dong = "<<HonorTile::suit_dong<<endl;
+cout<<"HonorTile.Dong = "<<HonorTile::Dong<<endl;
 
 HonorTile default_honor_tile;
 
 cout<<"default_honor_tile = "<<default_honor_tile<<endl;
 
 
-HonorTile custom_honor_tile(HonorTile::suit_dong);
+HonorTile custom_honor_tile(HonorTile::Dong);
 
 cout<<"custom_honor_tile = "<<custom_honor_tile<<endl;
 

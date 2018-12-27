@@ -9,7 +9,7 @@ SimpleTile::SimpleTile()
     num = -1;
 }
 
-SimpleTile::SimpleTile(int suit_in,int num_in)
+SimpleTile::SimpleTile(int num_in,int suit_in)
 {
     suit = suit_in;
     num = num_in;
@@ -19,16 +19,16 @@ SimpleTile::SimpleTile(int suit_in,int num_in)
 std::ostream& SimpleTile::toString(std::ostream& o) const
 {
     char* output;
-    if(suit==suit_dot)
+    if(suit==Dot)
     output = (char*)"Dot";
-    else if(suit==suit_bamboo)
+    else if(suit==Bamboo)
     output = (char*)"Bamboo";
-    else if(suit==suit_character)
+    else if(suit==Character)
     output = (char*)"Character";
     else
     output = (char*)"Unknown";
 
-    o<<"suit[SimpleTile]: "<<output<<", num = "<<num;
+    o<<"[SimpleTile]: "<<num<<" "<<output;
     return o;
 }
 

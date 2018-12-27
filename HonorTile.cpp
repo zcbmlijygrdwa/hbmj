@@ -17,19 +17,19 @@ HonorTile::HonorTile(int suit_in)
 std::ostream& HonorTile::toString(std::ostream& o) const
 {
     char* output;
-    if(suit==suit_dong)
+    if(suit==Dong)
     output = (char*)"Dong";
-    else if(suit==suit_nan)
+    else if(suit==Nan)
     output = (char*)"Nan";
-    else if(suit==suit_xi)
+    else if(suit==Xi)
     output = (char*)"Xi";
-    else if(suit==suit_bei)
+    else if(suit==Bei)
     output = (char*)"Bei";
     else 
     output = (char*)"Unknown";
 
 
-    o<<"suit[HonorTile]: "<<suit;
+    o<<"[HonorTile]: "<<output;
     return o;
 }
 
