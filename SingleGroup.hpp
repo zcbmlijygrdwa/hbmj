@@ -23,6 +23,12 @@ public:
     static const int  bai = 9;
 
     static const int  group_size = 10;
+    static const int  simple_size = 3;
+    static const int  honor_size = 7;
+
+
+    static const std::string suit_name_set[];
+
 
     SingleGroup();
 
@@ -35,7 +41,6 @@ public:
     void put(int suit);
 
     std::ostream& to_string(std::ostream& o);
-    std::vector<std::string> suit_name_set;
     
 private:
     int data[group_size];

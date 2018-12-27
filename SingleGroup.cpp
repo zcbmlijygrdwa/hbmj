@@ -1,22 +1,22 @@
 #include <iostream>
 #include "SingleGroup.hpp"
 
+const std::string SingleGroup::suit_name_set[] = {
+"character",
+"bamboo",
+"dot",
+"dong",
+"nan",
+"xi",
+"bei",
+"zhong",
+"fa",
+"bai"};
+
 
 SingleGroup::SingleGroup()
 {
     SingleGroup::reset_group_empty();
-
-    suit_name_set.push_back("character");
-    suit_name_set.push_back("bamboo");
-    suit_name_set.push_back("dot");
-    suit_name_set.push_back("dong");
-    suit_name_set.push_back("nan");
-    suit_name_set.push_back("xi");
-    suit_name_set.push_back("bei");
-    suit_name_set.push_back("zhong");
-    suit_name_set.push_back("fa");
-    suit_name_set.push_back("bai");
-
 }
 
 void SingleGroup::reset_group_full(int num)

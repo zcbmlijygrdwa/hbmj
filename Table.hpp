@@ -15,11 +15,10 @@ public:
     void discover_tile(int num, int suit);
     float tile_prob(int num, int suit);
 
+    int count_discovered;
+    int count_undiscovered;
     
 
 private:
-    int count_discovered;
-    int count_undiscovered;
     SingleGroup table_known[table_size];
-    SingleGroup table_unknown[table_size];
 };
