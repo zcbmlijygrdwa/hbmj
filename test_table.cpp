@@ -5,7 +5,6 @@
 #include <time.h>       /* time */
 #include <algorithm>  //for std::sort
 
-
 #include "Table.hpp"
 #include "Tile.hpp"
 
@@ -16,6 +15,19 @@ ostream& operator <<(ostream& o, SingleGroup& s)
 {
     return s.to_string(o);
 }
+
+int string2suit(std::string s)
+{
+    for(int i = 0; i < SingleGroup::group_size ; i++)
+    {
+        if(s.compare(SingleGroup::suit_name_set[i])==0)
+        {
+            return i;
+        }
+    }
+    return -1;
+}
+
 
 void sort_my_tiles(vector<Tile>& ts)
 {
@@ -83,6 +95,23 @@ int main()
 
     cout<<"Prob of get["<<5<<" dot] = "<<t.tile_prob(5,SingleGroup::dot)<<endl;
 
+    string ui;
+    while(true)
+    {
+        cout<<"Please enter num: "<<endl;
+        cin>>temp_num;
+        cout<<"Then suit: "<<endl;
+        cin>>ui;
+        temp_suit = string2suit(ui);
+        if(temp_suit!=-1&&temp_num>=1&&temp_num<=9)
+{
+        cout<<"Prob of get["<<temp_num<<","<<ui<<"] = "<<t.tile_prob(temp_num,temp_suit)<<endl<<endl;
+}
+else
+{
+    cout<<"Invalid input!"<<endl;
+} 
+   }
 
 
 
